@@ -32,7 +32,7 @@ echo "The user that built this is %{_whoami}"
 # create string where git repo is started..
 workingdir=`pwd`
 cd %{_b2safehomepackaging}
-cd ../irods
+#cd ../irods
 b2safehome=`pwd`
 cd $workingdir
 # empty source directory and copy new files
