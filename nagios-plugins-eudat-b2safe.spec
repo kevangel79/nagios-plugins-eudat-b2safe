@@ -27,17 +27,9 @@ This nagios plugin provides the nessecary scripts and config files to test
 
 # get all our source code in the $RPM_SOURCE_DIR
 %prep
-echo "the spec file directory is %{_b2safehomepackaging}"
-echo "The user that built this is %{_whoami}"
-# create string where git repo is started..
-workingdir=`pwd`
-cd %{_b2safehomepackaging}
-#cd ../irods
-b2safehome=`pwd`
-cd $workingdir
-# empty source directory and copy new files
-rm -rf $RPM_SOURCE_DIR/*
-cp -ar $b2safehome/* $RPM_SOURCE_DIR
+%setup -q
+
+%define _unpackaged_files_terminate_build 0 
 
 # build images. We don't have to make them so exit
 %build
