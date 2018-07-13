@@ -13,12 +13,6 @@ BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 #BuildRequires:	
 Requires:	irods-icommands
 
-%define _whoami %(whoami)
-%define _b2safehomepackaging %(pwd)
-%define _b2safeNagiosPackage /usr/libexec/argo-monitoring/probes/eudat-b2safe
-%define _b2safeNagiosTmp     /var/lib/argo-monitoring/eudat-b2safe
-%define _b2safeNagiosConfig  /etc/nagios/plugins/eudat-b2safe
-
 %description
 This nagios plugin provides the nessecary scripts and config files to test
  b2safe/iRODS.
@@ -30,23 +24,16 @@ This nagios plugin provides the nessecary scripts and config files to test
 
 %install
 
-install -d %{buildroot}/%{_b2safeNagiosPackage}
-install -d %{buildroot}/%{_b2safeNagiosConfig}
-install -m 755 check_irods.sh %{buildroot}/%{_b2safeNagiosPackage}/check_irods.sh
+install -d %{buildroot}/%{_libexecdir}/argo-monitoring/probes/eudat-b2safe
+install -d %{buildroot}/%{_sysconfdir}/nagios/plugins/eudat-b2safe
+install -m 755 check_irods.sh %{buildroot}/%{_libexecdir}/argo-monitoring/probes/eudat-b2safe/check_irods.sh
 
 %files
 %dir /%{_libexecdir}/argo-monitoring
 %dir /%{_libexecdir}/argo-monitoring/probes/
 %dir /%{_libexecdir}/argo-monitoring/probes/eudat-b2safe
 
-# attributes on files and directory's
-%attr(-,nagios,nagios)   %{_b2safeNagiosPackage}
-%attr(-,nagios,nagios)   %{_b2safeNagiosTmp}
-%attr(-,nagios,nagios)   %{_b2safeNagiosConfig}
-%attr(750,nagios,nagios) %{_b2safeNagiosPackage}/*.sh
-%attr(600,nagios,nagios) %{_b2safeNagiosConfig}/*.json
-%attr(600,nagios,nagios) %{_b2safeNagiosConfig}/irods_passwd
-%doc
+%attr(0755,root,root) /%{_libexecdir}/argo-monitoring/probes/eudat-b2safe/check_irods.sh
 
 
 %post
