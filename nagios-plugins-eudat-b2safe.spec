@@ -8,7 +8,7 @@ Group:		Application
 License:	open BSD License
 URL:		http://www.eudat.eu/b2safe
 BuildArch:	noarch
-#Source0:	
+Source:		%{name}-%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 #BuildRequires:	
