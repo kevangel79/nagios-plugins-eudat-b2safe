@@ -35,6 +35,8 @@ install -d %{buildroot}/%{_b2safeNagiosConfig}
 install -m 755 check_irods.sh %{buildroot}/%{_b2safeNagiosPackage}/check_irods.sh
 install -m 644 irods_environment.json %{buildroot}%{_b2safeNagiosConfig}/irods_environment.json
 install -m 644 irods_passwd %{buildroot}%{_b2safeNagiosConfig}/irods_passwd
+cp $RPM_SOURCE_DIR/*.json       %{buildroot}{_b2safeNagiosConfig}
+cp $RPM_SOURCE_DIR/irods_passwd %{buildroot}{_b2safeNagiosConfig}
 
 %files
 %dir /%{_libexecdir}/argo-monitoring
