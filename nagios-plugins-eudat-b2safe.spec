@@ -24,43 +24,24 @@ Requires:	irods-icommands
 This nagios plugin provides the nessecary scripts and config files to test
  b2safe/iRODS.
 
-
-# get all our source code in the $RPM_SOURCE_DIR
 %prep
 %setup -q
 
 %define _unpackaged_files_terminate_build 0 
 
-# build images. We don't have to make them so exit
-%build
-exit 0
-
-
-# put images in correct place
 %install
-rm -rf %{buildroot}
-mkdir -p $RPM_BUILD_ROOT%{_b2safeNagiosPackage}
-mkdir -p $RPM_BUILD_ROOT%{_b2safeNagiosTmp}
-mkdir -p $RPM_BUILD_ROOT%{_b2safeNagiosConfig}
 
-cp $RPM_SOURCE_DIR/*.sh         $RPM_BUILD_ROOT%{_b2safeNagiosPackage}
-cp $RPM_SOURCE_DIR/*.json       $RPM_BUILD_ROOT%{_b2safeNagiosConfig}
-cp $RPM_SOURCE_DIR/irods_passwd $RPM_BUILD_ROOT%{_b2safeNagiosConfig}
+install -d %{buildroot}/%{_b2safeNagiosPackage}
+install -d %{buildroot}/%{_b2safeNagiosConfig}
+install -m 755 check_irods.sh %{buildroot}/%{_b2safeNagiosPackage}/check_irods.sh
+install -m 644 irods_environment.json %{buildroot}%{_b2safeNagiosConfig}/irods_environment.json
+install -m 644 irods_passwd %{buildroot}%{_b2safeNagiosConfig}/irods_passwd
 
-
-# cleanup
-%clean
-rm -rf %{buildroot}
-
-#provide files to rpm. Set attributes 
 %files
-# default attributes
-%defattr(-,-,-,-)
-# files
-#include files
-%{_b2safeNagiosPackage}
-%{_b2safeNagiosTmp}
-%{_b2safeNagiosConfig}
+%dir /%{_libexecdir}/argo-monitoring
+%dir /%{_libexecdir}/argo-monitoring/probes/
+%dir /%{_libexecdir}/argo-monitoring/probes/eudat-b2safe
+
 # attributes on files and directory's
 %attr(-,nagios,nagios)   %{_b2safeNagiosPackage}
 %attr(-,nagios,nagios)   %{_b2safeNagiosTmp}
@@ -69,9 +50,6 @@ rm -rf %{buildroot}
 %attr(600,nagios,nagios) %{_b2safeNagiosConfig}/*.json
 %attr(600,nagios,nagios) %{_b2safeNagiosConfig}/irods_passwd
 %doc
-# config files
-%config(noreplace) %{_b2safeNagiosConfig}/*.json
-%config(noreplace) %{_b2safeNagiosConfig}/irods_passwd
 
 
 %post
