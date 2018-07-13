@@ -1,4 +1,4 @@
-iRODS probe
+# iRODS probe
 ===========
 
 Nagios probe for the B2SAFE component iRODS.
