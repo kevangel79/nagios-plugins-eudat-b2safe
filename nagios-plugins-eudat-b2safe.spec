@@ -1,7 +1,6 @@
 Name:		nagios-plugins-eudat-b2safe
-Version:	%{_version}
-Release:	%{_release}
-#Release:	1%{?dist}
+Version:	1.0
+Release:	1%{?dist}
 Summary:	nagios probe for b2safe
 
 Group:		Application
