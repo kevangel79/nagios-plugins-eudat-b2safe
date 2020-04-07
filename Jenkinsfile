@@ -51,7 +51,6 @@ pipeline {
     post {
         always {
             cleanWs()
-            slackSend( message: "TEST please ignore <$BUILD_URL|$PROJECT_DIR>. Branch: $BRANCH_NAME Job: $JOB_NAME !")
         }
         success {
             script{
